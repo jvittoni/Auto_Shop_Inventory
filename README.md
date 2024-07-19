@@ -1,26 +1,76 @@
-<strong>** DO NOT DISTRIBUTE OR PUBLICLY POST SOLUTIONS TO THESE LABS. MAKE ALL FORKS OF THIS REPOSITORY WITH SOLUTION CODE PRIVATE. PLEASE REFER TO THE STUDENT CODE OF CONDUCT AND ETHICAL EXPECTATIONS FOR COLLEGE OF INFORMATION TECHNOLOGY STUDENTS FOR SPECIFICS. ** </strong>
+<hr>
 
-# WESTERN GOVERNORS UNIVERSITY 
-## D287 – JAVA FRAMEWORKS
-Welcome to Java Frameworks! This is an opportunity for students to implement user interfaces and learn to leverage existing frameworks, assets, and content for object-oriented programming.
-FOR SPECIFIC TASK INSTRUCTIONS AND REQUIREMENTS FOR THIS ASSESSMENT, PLEASE REFER TO THE COURSE PAGE.
-## BASIC INSTRUCTIONS
-For this project, you will use the Integrated Development Environment (IDE) link in the web links section of this assessment to install the IDE, IntelliJ IDEA (Ultimate Edition). All relevant links are on the course page. Please refer to the course of study for specific links. You will sign up for a free student license using your WGU.edu email address. Please see the “IntelliJ Ultimate Edition Instructions” attachment for instructions on how do this. Next you will download the “Inventory Management Application Template Code” provided in the web links section and open it in IntelliJ IDEA (Ultimate Edition). You will upload this project to a private external GitLab repository and backup regularly. As a part of this, you have been provided with a base code (starting point). 
+## TRACKED CHANGES
+\\
 
-## SUPPLEMENTAL RESOURCES  
-1.	How to clone a project to IntelliJ using Git?
+#### C.  Customize the HTML user interface for your customer’s application. The user interface should include the shop name, the product names, and the names of the parts.**
 
-> Ensure that you have Git installed on your system and that IntelliJ is installed using [Toolbox](https://www.jetbrains.com/toolbox-app/). Make sure that you are using version 2022.3.2. Once this has been confirmed, click the clone button and use the 'IntelliJ IDEA (HTTPS)' button. This will open IntelliJ with a prompt to clone the proejct. Save it in a safe location for the directory and press clone. IntelliJ will prompt you for your credentials. Enter in your WGU Credentials and the project will be cloned onto your local machine.  
+File Name: mainscreen.html
+<br>Line 14:
+Changed title from “My Bicycle Shop” to “Viscardi's Auto Shop”
+<br>Code: `<title>Viscardi's Auto Shop</title>`
 
-2. How to create a branch and start Development?
+File Name: mainscreen.html
+<br>Line 19:
+Changed h1 from “Shop” to “Viscardi's Auto Shop”
+<br>Code: `<h1>Viscardi's Auto Shop</h1>`
 
-- GitLab method
-> Press the '+' button located near your branch name. In the dropdown list, press the 'New branch' button. This will allow you to create a name for your branch. Once the branch has been named, you can select 'Create Branch' to push the branch to your repository.
+File Name: mainscreen.html
+<br>Line 21:
+Changed h2 from “Parts” to “Auto Parts”
+<br>Code: `<h2>Auto Parts</h2>`
 
-- IntelliJ method
-> In IntelliJ, Go to the 'Git' button on the top toolbar. Select the new branch option and create a name for the branch. Make sure checkout branch is selected and press create. You can now add a commit message and push the new branch to the local repo.
+File Name: mainscreen.html
+<br>Line 53:
+Changed h2 from “Products” to “Vehicles”
+<br>Code: `<h2>Vehicles</h2>`
 
-## SUPPORT
-If you need additional support, please navigate to the course page and reach out to your course instructor.
-## FUTURE USE
-Take this opportunity to create or add to a simple resume portfolio to highlight and showcase your work for future use in career search, experience, and education!
+File Name: mainscreen.html
+<br>Line 67:
+Changed button text from “Add Product” to “Add Vehicle”
+<br>Code: `<a th:href="@{/showFormAddProduct}" class="btn btn-primary btn-sm mb-3">Add Vehicle</a>`
+
+File Name: mainscreen.html
+<br>Line 25:
+Added a logo (image)
+<br>Code: `<img src="https://i.postimg.cc/5NPmP4DT/auto-Logo-1.png" alt="auto-shop-logo">`
+
+File Name: mainscreen.html
+<br>Line 25 - 28:
+Added a div container (class="header-container") for the img and h1 element
+<br>Code: `<div class="header-container"></div>`
+
+File Name: mainscreen.html
+<br>Line 16 - 32:
+Added css internal styling for header-container elements
+<br>Code: `<style>
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header-container img {
+            width: 10%;
+        }
+        .header-container h1 {
+            margin: auto;
+            text-align: center;
+        }
+    </style>`
+
+File Name: mainscreen.html
+<br>Line 17 - 36:
+Added font-family to body and adjusted h1 styling
+<br>Code: `<style>
+        body {
+        font-family: Arial;
+        }
+        .header-container h1 {
+            …
+            font-size: 40px;
+            font-weight: 700;
+        }
+    </style>`
+
+<br>
+<hr>
