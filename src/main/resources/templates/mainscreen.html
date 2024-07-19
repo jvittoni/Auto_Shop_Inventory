@@ -46,6 +46,11 @@
         <h1>Viscardi's Auto Shop</h1>
     </div>
     <hr>
+
+    <div class="about-container">
+        <a th:href="@{/about}" class="about-btn">About Viscardi's Auto Shop</a>
+    </div>
+
     <h2>Auto Parts</h2>
     <form th:action="@{/mainscreen}">
         Filter: <input type="text" name="partkeyword" id="partkeyword" size="50" th:value="${partkeyword}" required />
