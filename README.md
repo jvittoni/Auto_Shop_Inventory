@@ -302,7 +302,141 @@ File Name: about.html
 }
 ```
 
+<br>
 
+<hr>
+
+<br>
+
+#### E.  Add a sample inventory appropriate for your chosen store to the application. You should have five parts and five products in your sample inventory and should not overwrite existing data in the database.  spring-boot-h2-db102
+
+<br>
+
+File Name: BootStrapData.java
+<br>Line: 33 - 42
+<br>Edit: Added InhousePart Repository and added Inhouse Repository to the constructor
+<br>Code:
+```
+    private final InhousePartRepository inhousePartRepository;
+
+    public BootStrapData(PartRepository partRepository,
+                         ProductRepository productRepository,
+                         OutsourcedPartRepository outsourcedPartRepository,
+                         InhousePartRepository inhousePartRepository) {
+        this.partRepository = partRepository;
+        this.productRepository = productRepository;
+        this.outsourcedPartRepository=outsourcedPartRepository;
+        this.inhousePartRepository=inhousePartRepository;
+    }
+```
+
+<br>
+
+File Name: BootStrapData.java
+<br>Line: 48 - 73
+<br>Edit: Added three OutsourcedParts
+<br>Code:
+```
+// OutsourcedPart #1
+        OutsourcedPart engine = new OutsourcedPart();
+        engine.setCompanyName("Global Auto Parts");
+        engine.setName("Engine");
+        engine.setInv(3);
+        engine.setPrice(5800.0);
+        engine.setId(8910);
+        outsourcedPartRepository.save(engine);
+
+        // OutsourcedPart #2
+        OutsourcedPart transmission = new OutsourcedPart();
+        transmission.setCompanyName("Global Auto Parts");
+        transmission.setName("Transmission");
+        transmission.setInv(4);
+        transmission.setPrice(4500.00);
+        transmission.setId(7301);
+        outsourcedPartRepository.save(transmission);
+
+        // OutsourcedPart #3
+        OutsourcedPart alternator = new OutsourcedPart();
+        alternator.setCompanyName("Import Auto Supply");
+        alternator.setName("Alternator");
+        alternator.setInv(4);
+        alternator.setPrice(350.00);
+        alternator.setId(7301);
+        outsourcedPartRepository.save(alternator);
+```
+
+<br>
+
+File Name: BootStrapData.java
+<br>Line: 49 - 65
+<br>Edit: Added two inhouseParts
+<br>Code:
+```
+// InhousePart #1
+        InhousePart battery = new InhousePart();
+        battery.setPartId(71);
+        battery.setName("Battery");
+        battery.setInv(11);
+        battery.setPrice(290.00);
+        battery.setId(4471);
+        inhousePartRepository.save(battery);
+
+        // InhousePart #2
+        InhousePart brake = new InhousePart();
+        brake.setPartId(82);
+        brake.setName("Brake");
+        brake.setInv(16);
+        brake.setPrice(650.00);
+        brake.setId(3782);
+        inhousePartRepository.save(brake);
+```
+
+<br>
+
+File Name: BootStrapData.java
+<br>Line: 49 - 97
+<br>Edit: Ensured that Parts data doesn’t duplicate with count() == 0
+<br>Code:
+```
+if(inhousePartRepository.count() == 0) {
+// inhouseParts Code
+}
+
+if(outsourcedPartRepository.count() == 0) {
+// outsourcedParts Code
+}
+```
+
+<br>
+
+File Name: BootStrapData.java
+<br>Line: 99 - 120
+<br>Edit: Added five products and used count() to ensure no repeats
+<br>Code:
+```
+if(productRepository.count() == 0) {
+
+            // Product #1
+            Product truck = new Product(946221,"Truck", 67000.00, 7);
+            productRepository.save(truck);
+
+            // Product #2
+            Product sedan = new Product(976112,"Sedan", 29000.00, 6);
+            productRepository.save(sedan);
+
+            // Product #3
+            Product sports = new Product(936223,"Sports Car", 90000.00, 8);
+            productRepository.save(sports);
+
+            // Product #4
+            Product suv = new Product(918224,"SUV", 45000.00, 7);
+            productRepository.save(suv);
+
+            // Product #5
+            Product convertible = new Product(928315,"Convertible", 62000.00, 4);
+            productRepository.save(convertible);
+        }
+```
 <br>
 
 <hr>
