@@ -3,6 +3,7 @@ package com.example.demo.bootstrap;
 import com.example.demo.domain.OutsourcedPart;
 import com.example.demo.domain.Part;
 import com.example.demo.domain.Product;
+import com.example.demo.repositories.InhousePartRepository;
 import com.example.demo.repositories.OutsourcedPartRepository;
 import com.example.demo.repositories.PartRepository;
 import com.example.demo.repositories.ProductRepository;
@@ -29,38 +30,52 @@ public class BootStrapData implements CommandLineRunner {
     private final ProductRepository productRepository;
 
     private final OutsourcedPartRepository outsourcedPartRepository;
+    private final InhousePartRepository inhousePartRepository;
 
-    public BootStrapData(PartRepository partRepository, ProductRepository productRepository, OutsourcedPartRepository outsourcedPartRepository) {
+    public BootStrapData(PartRepository partRepository,
+                         ProductRepository productRepository,
+                         OutsourcedPartRepository outsourcedPartRepository,
+                         InhousePartRepository inhousePartRepository) {
         this.partRepository = partRepository;
         this.productRepository = productRepository;
         this.outsourcedPartRepository=outsourcedPartRepository;
+        this.inhousePartRepository=inhousePartRepository;
     }
 
     @Override
     public void run(String... args) throws Exception {
 
-       /*
-        OutsourcedPart o= new OutsourcedPart();
-        o.setCompanyName("Western Governors University");
-        o.setName("out test");
-        o.setInv(5);
-        o.setPrice(20.0);
-        o.setId(100L);
-        outsourcedPartRepository.save(o);
+       // Creating an object from the OutsourcedPart Class
+        OutsourcedPart engine = new OutsourcedPart();
+
+        // Setting the values
+        engine.setCompanyName("Viscardi's Auto Shop");
+        engine.setName("Engine");
+        engine.setInv(5);
+        engine.setPrice(20.0);
+        engine.setId(8910);
+
+        // Save into the outsourcedPartRepository
+        outsourcedPartRepository.save(engine);
+
+
+        /*
         OutsourcedPart thePart=null;
         List<OutsourcedPart> outsourcedParts=(List<OutsourcedPart>) outsourcedPartRepository.findAll();
         for(OutsourcedPart part:outsourcedParts){
             if(part.getName().equals("out test"))thePart=part;
         }
 
+
         System.out.println(thePart.getCompanyName());
-        */
+
+
         List<OutsourcedPart> outsourcedParts=(List<OutsourcedPart>) outsourcedPartRepository.findAll();
         for(OutsourcedPart part:outsourcedParts){
             System.out.println(part.getName()+" "+part.getCompanyName());
         }
 
-        /*
+
         Product bicycle= new Product("bicycle",100.0,15);
         Product unicycle= new Product("unicycle",100.0,15);
         productRepository.save(bicycle);
