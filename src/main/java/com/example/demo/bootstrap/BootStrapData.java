@@ -53,8 +53,6 @@ public class BootStrapData implements CommandLineRunner {
             battery.setPartId(71);
             battery.setName("Battery");
             battery.setInv(11);
-            battery.setMinInv(0);
-            battery.setMaxInv(100);
             battery.setPrice(290.00);
             battery.setId(4471);
             inhousePartRepository.save(battery);
