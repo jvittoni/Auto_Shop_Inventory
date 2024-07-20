@@ -93,6 +93,14 @@ public abstract class Part implements Serializable {
         this.inv = inv;
     }
 
+    // Min and Max getter and setter methods
+    public int getMinInv() { return minInv; }
+    public void setMinInv(int minInv) { this.minInv = minInv; }
+
+    public int getMaxInv() { return maxInv; }
+    public void setMaxInv(int maxInv) { this.maxInv = maxInv; }
+
+
     public Set<Product> getProducts() {
         return products;
     }
