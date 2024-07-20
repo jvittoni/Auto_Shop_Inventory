@@ -46,51 +46,55 @@ public class BootStrapData implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        // InhousePart #1
-        InhousePart battery = new InhousePart();
-        battery.setPartId(71);
-        battery.setName("Battery");
-        battery.setInv(11);
-        battery.setPrice(290.00);
-        battery.setId(4471);
-        inhousePartRepository.save(battery);
+        if(inhousePartRepository.count() == 0) {
 
-        // InhousePart #2
-        InhousePart brake = new InhousePart();
-        brake.setPartId(82);
-        brake.setName("Brake");
-        brake.setInv(16);
-        brake.setPrice(650.00);
-        brake.setId(3782);
-        inhousePartRepository.save(brake);
+            // InhousePart #1
+            InhousePart battery = new InhousePart();
+            battery.setPartId(71);
+            battery.setName("Battery");
+            battery.setInv(11);
+            battery.setPrice(290.00);
+            battery.setId(4471);
+            inhousePartRepository.save(battery);
 
-       // OutsourcedPart #1
-        OutsourcedPart engine = new OutsourcedPart();
-        engine.setCompanyName("Global Auto Parts");
-        engine.setName("Engine");
-        engine.setInv(3);
-        engine.setPrice(5800.0);
-        engine.setId(8910);
-        outsourcedPartRepository.save(engine);
+            // InhousePart #2
+            InhousePart brake = new InhousePart();
+            brake.setPartId(82);
+            brake.setName("Brake");
+            brake.setInv(16);
+            brake.setPrice(650.00);
+            brake.setId(3782);
+            inhousePartRepository.save(brake);
+        }
 
-        // OutsourcedPart #2
-        OutsourcedPart transmission = new OutsourcedPart();
-        transmission.setCompanyName("Global Auto Parts");
-        transmission.setName("Transmission");
-        transmission.setInv(4);
-        transmission.setPrice(4500.00);
-        transmission.setId(7301);
-        outsourcedPartRepository.save(transmission);
+        if(outsourcedPartRepository.count() == 0) {
+            // OutsourcedPart #1
+            OutsourcedPart engine = new OutsourcedPart();
+            engine.setCompanyName("Global Auto Parts");
+            engine.setName("Engine");
+            engine.setInv(3);
+            engine.setPrice(5800.0);
+            engine.setId(8910);
+            outsourcedPartRepository.save(engine);
 
-        // OutsourcedPart #3
-        OutsourcedPart alternator = new OutsourcedPart();
-        alternator.setCompanyName("Import Auto Supply");
-        alternator.setName("Alternator");
-        alternator.setInv(4);
-        alternator.setPrice(350.00);
-        alternator.setId(7301);
-        outsourcedPartRepository.save(alternator);
+            // OutsourcedPart #2
+            OutsourcedPart transmission = new OutsourcedPart();
+            transmission.setCompanyName("Global Auto Parts");
+            transmission.setName("Transmission");
+            transmission.setInv(4);
+            transmission.setPrice(4500.00);
+            transmission.setId(7301);
+            outsourcedPartRepository.save(transmission);
 
+            // OutsourcedPart #3
+            OutsourcedPart alternator = new OutsourcedPart();
+            alternator.setCompanyName("Import Auto Supply");
+            alternator.setName("Alternator");
+            alternator.setInv(4);
+            alternator.setPrice(350.00);
+            alternator.setId(7301);
+            outsourcedPartRepository.save(alternator);
+        }
 
         /*
         OutsourcedPart thePart=null;
