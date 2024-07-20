@@ -73,7 +73,7 @@ public class BootStrapData implements CommandLineRunner {
             engine.setCompanyName("Global Auto Parts");
             engine.setName("Engine");
             engine.setInv(3);
-            engine.setPrice(5800.0);
+            engine.setPrice(5800.00);
             engine.setId(8910);
             outsourcedPartRepository.save(engine);
 
@@ -96,6 +96,29 @@ public class BootStrapData implements CommandLineRunner {
             outsourcedPartRepository.save(alternator);
         }
 
+        if(productRepository.count() == 0) {
+
+            // Product #1
+            Product truck = new Product(946221,"Truck", 67000.00, 7);
+            productRepository.save(truck);
+
+            // Product #2
+            Product sedan = new Product(976112,"Sedan", 29000.00, 6);
+            productRepository.save(sedan);
+
+            // Product #3
+            Product sports = new Product(936223,"Sports Car", 90000.00, 8);
+            productRepository.save(sports);
+
+            // Product #4
+            Product suv = new Product(918224,"SUV", 45000.00, 7);
+            productRepository.save(suv);
+
+            // Product #5
+            Product convertible = new Product(928315,"Convertible", 62000.00, 4);
+            productRepository.save(convertible);
+        }
+
         /*
         OutsourcedPart thePart=null;
         List<OutsourcedPart> outsourcedParts=(List<OutsourcedPart>) outsourcedPartRepository.findAll();
@@ -103,15 +126,12 @@ public class BootStrapData implements CommandLineRunner {
             if(part.getName().equals("out test"))thePart=part;
         }
 
-
         System.out.println(thePart.getCompanyName());
-
 
         List<OutsourcedPart> outsourcedParts=(List<OutsourcedPart>) outsourcedPartRepository.findAll();
         for(OutsourcedPart part:outsourcedParts){
             System.out.println(part.getName()+" "+part.getCompanyName());
         }
-
 
         Product bicycle= new Product("bicycle",100.0,15);
         Product unicycle= new Product("unicycle",100.0,15);
