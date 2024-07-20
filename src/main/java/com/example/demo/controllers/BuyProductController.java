@@ -23,8 +23,8 @@ public class BuyProductController {
     @Autowired private ProductRepository productRepository;
 
     @GetMapping("/buyProduct")
-    public String buyProduct(@RequestParam("productID") Long theld, Model theModel) {
-        Optional<Product> productToBuy = productRepository.findById(theld);
+    public String buyProduct(@RequestParam("productID") Long theId, Model theModel) {
+        Optional<Product> productToBuy = productRepository.findById(theId);
 
         if (productToBuy.isPresent()) {
             Product product = productToBuy.get();
