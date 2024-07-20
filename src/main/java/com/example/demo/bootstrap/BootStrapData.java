@@ -45,18 +45,32 @@ public class BootStrapData implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-       // Creating an object from the OutsourcedPart Class
+       // OutsourcedPart #1
         OutsourcedPart engine = new OutsourcedPart();
-
-        // Setting the values
-        engine.setCompanyName("Viscardi's Auto Shop");
+        engine.setCompanyName("Global Auto Parts");
         engine.setName("Engine");
-        engine.setInv(5);
-        engine.setPrice(20.0);
+        engine.setInv(3);
+        engine.setPrice(5800.0);
         engine.setId(8910);
-
-        // Save into the outsourcedPartRepository
         outsourcedPartRepository.save(engine);
+
+        // OutsourcedPart #2
+        OutsourcedPart transmission = new OutsourcedPart();
+        transmission.setCompanyName("Global Auto Parts");
+        transmission.setName("Transmission");
+        transmission.setInv(4);
+        transmission.setPrice(4500.00);
+        transmission.setId(7301);
+        outsourcedPartRepository.save(transmission);
+
+        // OutsourcedPart #3
+        OutsourcedPart alternator = new OutsourcedPart();
+        alternator.setCompanyName("Import Auto Supply");
+        alternator.setName("Alternator");
+        alternator.setInv(4);
+        alternator.setPrice(350.00);
+        alternator.setId(7301);
+        outsourcedPartRepository.save(alternator);
 
 
         /*
