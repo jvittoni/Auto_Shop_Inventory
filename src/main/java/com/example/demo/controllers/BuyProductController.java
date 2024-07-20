@@ -35,10 +35,10 @@ public class BuyProductController {
 
                 return "/confirmbuysuccess";
             } else {
-                return "/confirmbuyerror";
+                return "/confirmbuyfailure";
             }
         } else {
-            return "/confirmbuyerror";
+            return "/confirmbuyfailure";
         }
     }
 }
