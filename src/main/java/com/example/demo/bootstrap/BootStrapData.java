@@ -1,5 +1,6 @@
 package com.example.demo.bootstrap;
 
+import com.example.demo.domain.InhousePart;
 import com.example.demo.domain.OutsourcedPart;
 import com.example.demo.domain.Part;
 import com.example.demo.domain.Product;
@@ -44,6 +45,24 @@ public class BootStrapData implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+
+        // InhousePart #1
+        InhousePart battery = new InhousePart();
+        battery.setPartId(71);
+        battery.setName("Battery");
+        battery.setInv(11);
+        battery.setPrice(290.00);
+        battery.setId(4471);
+        inhousePartRepository.save(battery);
+
+        // InhousePart #2
+        InhousePart brake = new InhousePart();
+        brake.setPartId(82);
+        brake.setName("Brake");
+        brake.setInv(16);
+        brake.setPrice(650.00);
+        brake.setId(3782);
+        inhousePartRepository.save(brake);
 
        // OutsourcedPart #1
         OutsourcedPart engine = new OutsourcedPart();
