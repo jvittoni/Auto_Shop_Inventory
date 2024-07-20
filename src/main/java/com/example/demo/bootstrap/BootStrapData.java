@@ -62,8 +62,6 @@ public class BootStrapData implements CommandLineRunner {
             brake.setPartId(82);
             brake.setName("Brake");
             brake.setInv(16);
-            brake.setMinInv(0);
-            brake.setMaxInv(100);
             brake.setPrice(650.00);
             brake.setId(3782);
             inhousePartRepository.save(brake);
@@ -75,8 +73,6 @@ public class BootStrapData implements CommandLineRunner {
             engine.setCompanyName("Global Auto Parts");
             engine.setName("Engine");
             engine.setInv(3);
-            engine.setMinInv(0);
-            engine.setMaxInv(100);
             engine.setPrice(5800.00);
             engine.setId(8910);
             outsourcedPartRepository.save(engine);
@@ -86,8 +82,6 @@ public class BootStrapData implements CommandLineRunner {
             transmission.setCompanyName("Global Auto Parts");
             transmission.setName("Transmission");
             transmission.setInv(4);
-            transmission.setMinInv(0);
-            transmission.setMaxInv(100);
             transmission.setPrice(4500.00);
             transmission.setId(7301);
             outsourcedPartRepository.save(transmission);
@@ -97,8 +91,6 @@ public class BootStrapData implements CommandLineRunner {
             alternator.setCompanyName("Import Auto Supply");
             alternator.setName("Alternator");
             alternator.setInv(4);
-            alternator.setMinInv(0);
-            alternator.setMaxInv(100);
             alternator.setPrice(350.00);
             alternator.setId(7301);
             outsourcedPartRepository.save(alternator);
