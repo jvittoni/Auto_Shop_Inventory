@@ -442,3 +442,202 @@ if(productRepository.count() == 0) {
 <hr>
 
 <br>
+
+#### F.  Add a “Buy Now” button to your product list. Your “Buy Now” button must meet each of the following parameters:
+* The “Buy Now” button must be next to the buttons that update and delete products.
+* The button should decrement the inventory of that product by one. It should not affect the inventory of any of the associated parts.
+* Display a message that indicates the success or failure of a purchase.
+
+<br>
+
+File Name: mainscreen.html
+<br>Line: 124
+<br>Edit: Added a “Buy Now” button next to the buttons that update / delete products
+<br>Code:
+```
+<a th:href="@{buyProduct(productId=${tempProduct.id})}" class="btn btn-primary btn-sm mb-3">Buy Now</a>
+```
+
+<br>
+
+File Name: BuyProductController.java
+<br>Line: 1- 44
+<br>Edit: Created file BuyProductController.java and added a controller for the "Buy Now" button and added imports
+<br>Code:
+```
+package com.example.demo.controllers;
+
+import com.example.demo.domain.Part;
+import com.example.demo.domain.Product;
+import com.example.demo.repositories.ProductRepository;
+import com.example.demo.service.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
+
+@Controller
+public class BuyProductController {
+    @Autowired private ProductRepository productRepository;
+
+    @GetMapping("/buyProduct")
+    public String buyProduct(@RequestParam("productID") Long theld, Model theModel) {
+        Optional<Product> productToBuy = productRepository.findById(theld);
+
+        if (productToBuy.isPresent()) {
+            Product product = productToBuy.get();
+
+            if (product.getInv() > 0) {
+                product.setInv(product.getInv() - 1);
+                productRepository.save(product);
+
+                return "/confirmbuysuccess";
+            } else {
+                return "/confirmbuyfail";
+            }
+        } else {
+            return "/confirmbuyfail";
+        }
+    }
+}
+
+```
+
+<br>
+
+File Name: confirmbuysuccess.html
+<br>Line: 1 -28
+<br>Edit: Created file confirmbuysuccess.html and included a message that indicates the success of a purchase
+<br>Code:
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        .link-to-mainscreen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="success-container">
+    <h2>Your purchase was successful!</h2>
+    <h3>Thank you for shopping at Viscardi's Auto Shop!</h3>
+
+    <div class="link-to-mainscreen">
+        <a href="http://localhost:8080/">Link
+            to Main Screen</a>
+    </div>
+</div>
+
+</body>
+</html>
+```
+
+<br>
+
+File Name: BuyProductController.java
+<br>Line: 38 - 41
+<br>Edit: changed confirmbuyfail to confirmbuyerror
+<br>Code:
+```
+…
+                return "/confirmbuyerror";
+            }
+        } else {
+            return "/confirmbuyerror";
+ …
+
+```
+
+<br>
+
+File Name: BuyProductController.java
+<br>Line: 38 - 41
+<br>Edit: changed confirmbuyerror to confirmbuyfailure
+<br>Code:
+```
+…
+                return "/confirmbuyerror";
+            }
+        } else {
+            return "/confirmbuyerror";
+ …
+
+```
+
+<br>
+
+File Name: confirmbuysuccess.html
+<br>Line: 5
+<br>Edit: Changed title to "Confirm Successful Purchase"
+<br>Code:
+```
+<title>Confirm Successful Purchase</title>
+```
+
+<br>
+
+File Name: confirmbuyfailure.html
+<br>Line: 1 - 29
+<br>Edit: Created file confirmbuyfailure.html and included a message that indicates the failure of a purchase
+<br>Code:
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirm Failure of Purchase</title>
+
+    <style>
+        .link-to-mainscreen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="success-container">
+    <h2>Your purchase could not be completed.</h2>
+    <h3>We apologize for this inconvenience. Please contact us at (999) 999-9999 
+        or viscardiautoshop@gmail.com to get help with your purchase.</h3>
+
+    <div class="link-to-mainscreen">
+        <a href="http://localhost:8080/">Link
+            to Main Screen</a>
+    </div>
+</div>
+
+</body>
+</html>
+
+```
+
+<br>
+
+File Name: mainscreen.html, BuyProductController.java
+<br>Line: 124, 26 - 27
+<br>Edit: Fixed spelling errors and capitalization
+
+<br>
+
+<hr>
+
+<br>
