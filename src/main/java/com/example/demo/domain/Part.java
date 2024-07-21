@@ -49,6 +49,8 @@ public abstract class Part implements Serializable {
         this.name = name;
         this.price = price;
         this.inv = inv;
+        this.minInv = 0;
+        this.maxInv = 100;
     }
 
     public Part(long id, String name, double price, int inv) {
@@ -56,6 +58,8 @@ public abstract class Part implements Serializable {
         this.name = name;
         this.price = price;
         this.inv = inv;
+        this.minInv = 0;
+        this.maxInv = 100;
     }
 
     public long getId() {
