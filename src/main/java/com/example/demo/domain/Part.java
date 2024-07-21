@@ -129,14 +129,6 @@ public abstract class Part implements Serializable {
         return id == part.id;
     }
 
-    public void verifyInventoryLimits() {
-        if (this.inv < this.minInv) {
-            throw new RuntimeException("The value entered is below the required minimum.");
-        } else if (this.inv > this.maxInv) {
-            throw new RuntimeException("The value entered exceeds the allowed maximum.");
-        }
-    }
-
 
     @Override
     public int hashCode() {
