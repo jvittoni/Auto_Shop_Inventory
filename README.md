@@ -3,7 +3,9 @@
 ## TRACKED CHANGES
 \\
 
-#### C.  Customize the HTML user interface for your customer’s application. The user interface should include the shop name, the product names, and the names of the parts.**
+<br>
+
+### C.  Customize the HTML user interface for your customer’s application. The user interface should include the shop name, the product names, and the names of the parts.**
 
 <br>
 
@@ -119,7 +121,7 @@ File Name: mainscreen.html
 <hr>
 <br>
 
-#### D.  Add an “About” page to the application to describe your chosen customer’s company to web viewers and include navigation to and from the “About” page and the main screen.
+### D.  Add an “About” page to the application to describe your chosen customer’s company to web viewers and include navigation to and from the “About” page and the main screen.
 <br>
 
 Edit: Created about.html file
@@ -308,7 +310,7 @@ File Name: about.html
 
 <br>
 
-#### E.  Add a sample inventory appropriate for your chosen store to the application. You should have five parts and five products in your sample inventory and should not overwrite existing data in the database.  spring-boot-h2-db102
+### E.  Add a sample inventory appropriate for your chosen store to the application. You should have five parts and five products in your sample inventory and should not overwrite existing data in the database.  spring-boot-h2-db102
 
 <br>
 
@@ -443,7 +445,7 @@ if(productRepository.count() == 0) {
 
 <br>
 
-#### F.  Add a “Buy Now” button to your product list. Your “Buy Now” button must meet each of the following parameters:
+### F.  Add a “Buy Now” button to your product list. Your “Buy Now” button must meet each of the following parameters:
 * The “Buy Now” button must be next to the buttons that update and delete products.
 * The button should decrement the inventory of that product by one. It should not affect the inventory of any of the associated parts.
 * Display a message that indicates the success or failure of a purchase.
@@ -635,6 +637,224 @@ File Name: confirmbuyfailure.html
 File Name: mainscreen.html, BuyProductController.java
 <br>Line: 124, 26 - 27
 <br>Edit: Fixed spelling errors and capitalization
+
+<br>
+
+<hr>
+
+<br>
+
+### G.  Modify the parts to track maximum and minimum inventory by doing the following:
+* Add additional fields to the part entity for maximum and minimum inventory.
+* Modify the sample inventory to include the maximum and minimum fields.
+* Add to the InhousePartForm and OutsourcedPartForm forms additional text inputs for the inventory so the user can set the maximum and minimum values.
+* Rename the file the persistent storage is saved to.
+* Modify the code to enforce that the inventory is between or at the minimum and maximum value.
+
+<br>
+
+File Name: Part.java
+<br>Line: 33 - 37
+<br>Edit: Added min and max inventory fields
+<br>Code:
+```
+@Min(value = 0, message = "Min Inventory value must be positive")
+    int minInv;
+    @Min(value = 0, message = "Min Inventory must be positive")
+    @Max(value = 100, message = "Max Inventory value must be below 100")
+    int maxInv;
+```
+
+<br>
+
+File Name: Part.java
+<br>Line: 51 - 52, 60 - 61
+<br>Edit: Added min and max inventory values to both constructors
+<br>Code:
+```
+this.minInv = 0;
+this.maxInv = 100;
+…
+this.minInv = minInv; 
+this.maxInv = maxInv;
+```
+
+<br>
+
+File Name: Part.java
+<br>Line: 98 - 104
+<br>Edit: Added Min and Max getter and setter methods
+<br>Code:
+```
+   public int getMinInv() { return minInv; }
+    public void setMinInv(int minInv) { this.minInv = minInv; }
+
+    public int getMaxInv() { return maxInv; }
+    public void setMaxInv(int maxInv) { this.maxInv = maxInv; }
+```
+
+<br>
+
+File Name: InhousePart.java
+<br>Line: 18 - 19
+<br>Edit:  Added initialization for inhouse part
+<br>Code:
+```
+public InhousePart() {
+        this.minInv = 0;
+        this.maxInv = 100;
+    }
+```
+
+<br>
+
+File Name: OutsourcedPart.java
+<br>Line: 18 - 19
+<br>Edit:  Added initialization for outsourced part
+<br>Code:
+```
+public OutsourcedPart() {
+        this.minInv = 0;
+        this.maxInv = 100;
+    }
+```
+
+<br>
+
+File Name: mainscreen.html
+<br>Line: 77 - 78, 87 - 88
+<br>Edit: Added minimum inventory and maximum inventory sections to the table
+<br>Code:
+```
+<th>Minimum Inventory</th>
+<th>Maximum Inventory</th>
+…
+<td th:text="${tempPart.minInv}">1</td>
+<td th:text="${tempPart.maxInv}">1</td>
+```
+
+<br>
+
+
+File Name: BootStrapData.java
+<br>Line: 56 - 57, 66 - 67, 80 - 81, 91 - 92, 103 - 104
+<br>Edit: Added min and max inventory values to each sample inventory part
+<br>Code:
+```
+battery.setMinInv(1);
+battery.setMaxInv(100);
+…
+brake.setMinInv(1);
+brake.setMaxInv(100);
+…
+engine.setMinInv(1);
+engine.setMaxInv(100);
+…
+transmission.setMinInv(1);
+transmission.setMaxInv(100);
+…
+alternator.setMinInv(1);
+alternator.setMaxInv(100);
+```
+
+<br>
+
+File Name: InhousePartForm.html
+<br>Line: 24 - 28
+<br>Edit: Added min and max inventory fields to the inhouse part form
+<br>Code:
+```
+<p><input type="text" th:field="*{minInv}" placeholder="Minimum Inventory" class="form-control mb-4 col-4"></p>
+        <p th:if="${#fields.hasErrors('minInv')}" th:errors="*{minInv}">Inventory Error</p>
+
+    <p><input type="text" th:field="*{maxInv}" placeholder="Maximum Inventory" class="form-control mb-4 col-4"></p>
+        <p th:if="${#fields.hasErrors('maxInv')}" th:errors="*{maxInv}">Inventory Error</p>
+
+
+```
+
+<br>
+
+File Name: OutsourcedPartForm.html
+<br>Line: 25 - 29
+<br>Edit: Added min and max inventory fields to the outsourced part form
+<br>Code:
+```
+<p><input type="text" th:field="*{minInv}" placeholder="Minimum Inventory" class="form-control mb-4 col-4"></p>
+        <p th:if="${#fields.hasErrors('minInv')}" th:errors="*{minInv}">Inventory Error</p>
+
+    <p><input type="text" th:field="*{maxInv}" placeholder="Maximum Inventory" class="form-control mb-4 col-4"></p>
+        <p th:if="${#fields.hasErrors('maxInv')}" th:errors="*{maxInv}">Inventory Error</p>
+
+```
+
+<br>
+
+File Name: application.properties
+<br>Line: 6
+<br>Edit: Renamed the file the persistent storage is saved to
+<br>Code:
+```
+spring.datasource.url=jdbc:h2:file:~/vittone_15
+```
+
+<br>
+
+File Name: Part.java
+<br>Line: 128 - 134
+<br>Edit: Created a method that enforces the inventory to be between the min and max
+<br>Code:
+```
+    public void verifyInventoryLimits() {
+        if (this.inv < this.minInv) {
+            throw new RuntimeException("The value entered is below the required minimum.");
+        } else if (this.inv > this.maxInv) {
+            throw new RuntimeException("The value entered exceeds the allowed maximum.");
+        }
+    }
+```
+
+<br> 
+
+File Name: PartServiceImpl.java
+<br>Line: 59
+<br>Edit: Added call verifyInventoryLimits() method to public void save
+<br>Code:
+```
+@Override
+    public void save(Part thePart) {
+            thePart.verifyInventoryLimits();
+            partRepository.save(thePart);
+    }
+```
+
+<br>
+
+File Name: InhousePartServiceImpl.java
+<br>Line: 54
+<br>Edit: Added call verifyInventoryLimits() method to public void save
+<br>Code:
+```
+@Override
+    public void save(InhousePart thePart) {
+        thePart.verifyInventoryLimits();
+        partRepository.save(thePart);
+    }
+```
+
+<br>
+
+File Name: OutsourcedPartServiceImpl.java
+<br>Line: 52
+<br>Edit: Added call verifyInventoryLimits() method to public void save
+<br>Code:
+```
+    @Override
+    public void save(OutsourcedPart thePart) {
+        thePart.verifyInventoryLimits();
+        partRepository.save(thePart);
+    }
+```
 
 <br>
 
