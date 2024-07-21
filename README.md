@@ -798,63 +798,6 @@ File Name: application.properties
 spring.datasource.url=jdbc:h2:file:~/vittone_15
 ```
 
-<br>
-
-File Name: Part.java
-<br>Line: 128 - 134
-<br>Edit: Created a method that enforces the inventory to be between the min and max
-<br>Code:
-```
-    public void verifyInventoryLimits() {
-        if (this.inv < this.minInv) {
-            throw new RuntimeException("The value entered is below the required minimum.");
-        } else if (this.inv > this.maxInv) {
-            throw new RuntimeException("The value entered exceeds the allowed maximum.");
-        }
-    }
-```
-
-<br> 
-
-File Name: PartServiceImpl.java
-<br>Line: 59
-<br>Edit: Added call verifyInventoryLimits() method to public void save
-<br>Code:
-```
-@Override
-    public void save(Part thePart) {
-            thePart.verifyInventoryLimits();
-            partRepository.save(thePart);
-    }
-```
-
-<br>
-
-File Name: InhousePartServiceImpl.java
-<br>Line: 54
-<br>Edit: Added call verifyInventoryLimits() method to public void save
-<br>Code:
-```
-@Override
-    public void save(InhousePart thePart) {
-        thePart.verifyInventoryLimits();
-        partRepository.save(thePart);
-    }
-```
-
-<br>
-
-File Name: OutsourcedPartServiceImpl.java
-<br>Line: 52
-<br>Edit: Added call verifyInventoryLimits() method to public void save
-<br>Code:
-```
-    @Override
-    public void save(OutsourcedPart thePart) {
-        thePart.verifyInventoryLimits();
-        partRepository.save(thePart);
-    }
-```
 
 <br>
 
