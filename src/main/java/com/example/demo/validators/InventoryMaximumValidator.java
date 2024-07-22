@@ -12,8 +12,8 @@ import javax.validation.ConstraintValidatorContext;
 
 public class InventoryMaximumValidator implements ConstraintValidator<ValidInventoryMaximum, Part> {
     @Autowired
-    private ApplicationContext applicationContext;
-    public static ApplicationContext myContext;
+    private ApplicationContext context;
+    public static  ApplicationContext myContext;
 
     @Override
     public void initialize(ValidInventoryMaximum constraintAnnotation) {
@@ -22,6 +22,14 @@ public class InventoryMaximumValidator implements ConstraintValidator<ValidInven
 
     @Override
     public boolean isValid(Part part, ConstraintValidatorContext constraintValidatorContext) {
-        return part.getInv() <= part.getMaxInv();
+        if(context==null) return true;
+        if(context!=null)myContext=context;
+        if (part.getInv() <= part.getMaxInv()){
+            return true;
+        }
+        else {
+            return false;
+        }
+        /*return part.getInv() <= part.getMaxInv();*/
     }
 }
