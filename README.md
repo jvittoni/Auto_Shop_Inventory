@@ -1045,3 +1045,55 @@ if (p.getInv()<(product.getInv()-myProduct.getInv())) {
 <hr>
 
 <br>
+
+#### I.  Add at least two unit tests for the maximum and minimum fields to the PartTest class in the test package.
+ 
+<br>
+
+File Name: PartTest.java
+<br>Line: 104 - 138
+<br>Edit: Added four unit tests for the maximum and minimum fields
+<br>Code:
+```
+@Test
+    void getMinInv() {
+        int minInv=1;
+        partIn.setMinInv(minInv);
+        assertEquals(minInv,partIn.getMinInv());
+        partOut.setMinInv(minInv);
+        assertEquals(minInv,partOut.getMinInv());
+    }
+
+    @Test
+    void setMinInv() {
+        int minInv=1;
+        partIn.setMinInv(minInv);
+        assertEquals(minInv,partIn.getMinInv());
+        partOut.setMinInv(minInv);
+        assertEquals(minInv,partOut.getMinInv());
+    }
+
+    @Test
+    void getMaxInv() {
+        int maxInv=100;
+        partIn.setMaxInv(maxInv);
+        assertEquals(maxInv,partIn.getMaxInv());
+        partOut.setMaxInv(maxInv);
+        assertEquals(maxInv,partOut.getMaxInv());
+    }
+
+    @Test
+    void setMaxInv() {
+        int maxInv=100;
+        partIn.setMaxInv(maxInv);
+        assertEquals(maxInv,partIn.getMaxInv());
+        partOut.setMaxInv(maxInv);
+        assertEquals(maxInv,partOut.getMaxInv());
+    }
+```
+
+<br>
+
+<hr>
+
+<br>
