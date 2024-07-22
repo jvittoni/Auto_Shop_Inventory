@@ -1097,3 +1097,12 @@ File Name: PartTest.java
 <hr>
 
 <br>
+
+#### J.  Remove the class files for any unused validators in order to clean your code.
+
+<br>
+
+File Name: DeletePartValidator.java
+<br>Edit: Deleted unused validator class file
+
+<br>
