@@ -87,7 +87,7 @@ public class BootStrapData implements CommandLineRunner {
             OutsourcedPart transmission = new OutsourcedPart();
             transmission.setCompanyName("Global Auto Parts");
             transmission.setName("Transmission");
-            transmission.setInv(4);
+            transmission.setInv(50);
             transmission.setMinInv(1);
             transmission.setMaxInv(100);
             transmission.setPrice(4500.00);
@@ -98,7 +98,7 @@ public class BootStrapData implements CommandLineRunner {
             OutsourcedPart alternator = new OutsourcedPart();
             alternator.setCompanyName("Import Auto Supply");
             alternator.setName("Alternator");
-            alternator.setInv(4);
+            alternator.setInv(50);
             alternator.setMinInv(1);
             alternator.setMaxInv(100);
             alternator.setPrice(350.00);
@@ -109,7 +109,7 @@ public class BootStrapData implements CommandLineRunner {
         if(productRepository.count() == 0) {
 
             // Product #1
-            Product truck = new Product(946221,"Truck", 67000.00, 7);
+            Product truck = new Product(946221,"Truck", 67000.00, 10);
             productRepository.save(truck);
 
             // Product #2
