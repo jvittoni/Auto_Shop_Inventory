@@ -804,3 +804,244 @@ spring.datasource.url=jdbc:h2:file:~/vittone_15
 <hr>
 
 <br>
+
+#### H.  Add validation for between or at the maximum and minimum fields. The validation must include the following:
+* Display error messages for low inventory when adding and updating parts if the inventory is less than the minimum number of parts.
+* Display error messages for low inventory when adding and updating products lowers the part inventory below the minimum.
+* Display error messages when adding and updating parts if the inventory is greater than the maximum.
+
+File Name: ValidInventoryMinimum.java
+<br>Line: 1 - 20
+<br>Edit: Created ValidInventoryMinimum.java file and created error message for when the parts fall below the set min inventory
+<br>Code:
+```
+package com.example.demo.validators;
+
+
+import javax.validation.Constraint;
+import javax.validation.Payload;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import java.lang.annotation.ElementType;
+
+@Constraint(validatedBy = {InventoryMinimumValidator.class})
+@Target({ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+public @interface ValidInventoryMinimum {
+    String message () default "The part count falls below the set minimum inventory";
+    Class<?>[] groups() default {};
+    Class<? extends Payload>[] payload() default {};
+}
+```
+
+<br>
+
+File Name: InventoryMinimumValidator.java
+<br>Line: 1 - 27
+<br>Edit: Created InventoryMinimumValidator.java file and created a class for custom validation for the inventory minimum when adding and updating parts
+<br>Code:
+```
+package com.example.demo.validators;
+
+import com.example.demo.domain.Part;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+
+import javax.validation.Constraint;
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
+
+
+
+public class InventoryMinimumValidator implements ConstraintValidator<ValidInventoryMinimum, Part> {
+    @Autowired
+    private ApplicationContext applicationContext;
+    public static ApplicationContext myContext;
+
+    @Override
+    public void initialize(ValidInventoryMinimum constraintAnnotation) {
+        ConstraintValidator.super.initialize(constraintAnnotation);
+    }
+
+    @Override
+    public boolean isValid(Part part, ConstraintValidatorContext constraintValidatorContext) {
+        return part.getInv() > part.getMinInv();
+    }
+}
+```
+
+<br>
+
+File Name: ValidInventoryMaximum.java
+<br>Line: 1 - 20
+<br>Edit: Created ValidInventoryMaximum.java file and created error message for when the parts count exceeds max inventory
+<br>Code:
+```
+package com.example.demo.validators;
+
+
+import javax.validation.Constraint;
+import javax.validation.Payload;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import java.lang.annotation.ElementType;
+
+
+
+@Constraint(validatedBy = {InventoryMaximumValidator.class})
+@Target({ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+public @interface ValidInventoryMaximum {
+    String message () default "The part count exceeds the maximum inventory";
+    Class<?>[] groups() default {};
+    Class<? extends Payload>[] payload() default {};
+}
+```
+
+<br>
+
+File Name: InventoryMaximumValidator.java
+<br>Line: 1 - 27
+<br>Edit: Created InventoryMaximumValidator.java file and created a class for custom validation for the inventory maximum when adding and updating parts
+<br>Code:
+```
+package com.example.demo.validators;
+
+import com.example.demo.domain.Part;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+
+import javax.validation.Constraint;
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
+
+
+
+public class InventoryMaximumValidator implements ConstraintValidator<ValidInventoryMaximum, Part> {
+    @Autowired
+    private ApplicationContext applicationContext;
+    public static ApplicationContext myContext;
+
+    @Override
+    public void initialize(ValidInventoryMaximum constraintAnnotation) {
+        ConstraintValidator.super.initialize(constraintAnnotation);
+    }
+
+    @Override
+    public boolean isValid(Part part, ConstraintValidatorContext constraintValidatorContext) {
+        return part.getInv() <= part.getMaxInv();
+    }
+}
+```
+
+<br>
+
+File Name: Part.java
+<br>Line: 4 - 5, 22 - 23
+<br>Edit: Imported min max validator files and applied custom validation
+<br>Code:
+```
+import com.example.demo.validators.ValidInventoryMaximum;
+import com.example.demo.validators.ValidInventoryMinimum;
+…
+@ValidInventoryMinimum
+@ValidInventoryMaximum
+```
+
+<br>
+
+File Name: EnufPartsValidator.java
+<br>Line: 36 - 41
+<br>Edit: Added error message for inventory when adding and updating products lowers the part inventory below the set min
+<br>Code:
+```
+if (p.getInv()<(product.getInv()-myProduct.getInv())) {
+                    constraintValidatorContext.disableDefaultConstraintViolation();
+                    constraintValidatorContext.buildConstraintViolationWithTemplate("Error with inventory value for part: "
+                    + p.getName()).addConstraintViolation();
+                    return false;
+}	
+```
+
+<br>
+
+File Name: InhousePartForm.html, OutsourcedPartForm.html
+<br>Line: 33 - 37, 33 - 37
+<br>Edit: Added a list to show all errors when adding an updating parts to the inhouse and outsourced forms
+<br>Code:
+```
+<div th:if="${#fields.hasErrors()}">
+        <ul>
+            <li th:each="err : ${#fields.allErrors()}" th:text="${err}" class="error"/>
+        </ul>
+    </div>
+
+```
+
+<br>
+
+File Name: productForm.html
+<br>Line: 40 - 41, 50 - 51, 64 - 65, 74 - 75
+<br>Edit: Added min and max inventory fields to Available Parts Table and Associated Parts Table
+<br>Code:
+```
+<th>Minimum Inventory</th>
+<th>Maximum Inventory</th>
+…
+<td th:text="${tempPart.minInv}">1</td>
+<td th:text="${tempPart.maxInv}">1</td>
+```
+
+<br>
+
+File Name:  InventoryMinimumValidator.java
+<br>Line: 25 - 32
+<br>Edit: Changed the validator
+<br>Code:
+```
+if(context==null) return true;
+        if(context!=null)myContext=context;
+        if (part.getMinInv() < part.getInv()) {
+            return true;
+        }
+        else {
+            return false;
+        }
+```
+
+<br>
+
+File Name: InventoryMaximumValidator.java
+<br>Line: 25 - 32
+<br>Edit: Changed the validator
+<br>Code:
+```
+if(context==null) return true;
+        if(context!=null)myContext=context;
+        if (part.getInv() <= part.getMaxInv()){
+            return true;
+        }
+        else {
+            return false;
+        }
+```
+
+<br>
+
+File Name: EnufPartsValidator.java
+<br>Line: 33 - 35
+<br>Edit: Reformatted the if statement
+<br>Code:
+```
+if (p.getInv()<(product.getInv()-myProduct.getInv())) {
+                    return false;
+                }
+```
+
+<br>
+
+<hr>
+
+<br>

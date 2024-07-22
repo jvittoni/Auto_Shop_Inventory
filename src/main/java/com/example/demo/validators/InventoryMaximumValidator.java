@@ -30,6 +30,5 @@ public class InventoryMaximumValidator implements ConstraintValidator<ValidInven
         else {
             return false;
         }
-        /*return part.getInv() <= part.getMaxInv();*/
     }
 }
