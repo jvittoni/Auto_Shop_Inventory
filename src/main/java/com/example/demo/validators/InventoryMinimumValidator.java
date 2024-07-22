@@ -12,8 +12,8 @@ import javax.validation.ConstraintValidatorContext;
 
 public class InventoryMinimumValidator implements ConstraintValidator<ValidInventoryMinimum, Part> {
     @Autowired
-    private ApplicationContext applicationContext;
-    public static ApplicationContext myContext;
+    private ApplicationContext context;
+    public static  ApplicationContext myContext;
 
     @Override
     public void initialize(ValidInventoryMinimum constraintAnnotation) {
@@ -22,6 +22,13 @@ public class InventoryMinimumValidator implements ConstraintValidator<ValidInven
 
     @Override
     public boolean isValid(Part part, ConstraintValidatorContext constraintValidatorContext) {
-        return part.getInv() > part.getMinInv();
+        if(context==null) return true;
+        if(context!=null)myContext=context;
+        if (part.getMinInv() < part.getInv()) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }
